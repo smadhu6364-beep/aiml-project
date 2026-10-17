@@ -12,6 +12,7 @@ export default function CameraStage({ demo }) {
     let raf;
     let stopped = false;
     let runner;
+    let inFlight = Promise.resolve();
 
     (async () => {
       try {
@@ -34,7 +35,9 @@ export default function CameraStage({ demo }) {
               canvas.width = w;
               canvas.height = h;
             }
-            const out = await runner.run(video, ctx, canvas);
+            inFlight = runner.run(video, ctx, canvas);
+            const out = await inFlight;
+            if (stopped) return;
             if (out !== undefined) setLabel(out || "");
           }
           raf = requestAnimationFrame(loop);
@@ -50,7 +53,8 @@ export default function CameraStage({ demo }) {
       stopped = true;
       cancelAnimationFrame(raf);
       stream?.getTracks().forEach((t) => t.stop());
-      runner?.dispose?.();
+      // wait for the frame being processed before freeing model memory
+      inFlight.catch(() => {}).finally(() => runner?.dispose?.());
     };
   }, [demo]);
 
