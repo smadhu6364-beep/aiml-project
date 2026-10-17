@@ -1,0 +1,28 @@
+:root {
+  --bg: #0b1020;
+  --panel: #121a33;
+  --line: #24305a;
+  --text: #e6e9f5;
+  --muted: #98a2c3;
+  --accent: #22d3ee;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+a { color: var(--accent); }
+.page { max-width: 980px; margin: 0 auto; padding: 32px 16px 48px; }
+.top h1 { margin: 0 0 6px; font-size: clamp(28px, 5vw, 40px); letter-spacing: -0.02em; }
+.top p { margin: 0 0 24px; color: var(--muted); }
+.tabs { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; margin-bottom: 20px; }
+.tab { text-align: left; background: var(--panel); border: 1px solid var(--line); color: var(--text); border-radius: 12px; padding: 12px 14px; cursor: pointer; display: grid; gap: 2px; font: inherit; }
+.tab span { color: var(--muted); font-size: 14px; }
+.tab:hover, .tab.on { border-color: var(--accent); }
+.tab.on { box-shadow: 0 0 0 1px var(--accent) inset; }
+.empty { border: 1px dashed var(--line); border-radius: 16px; padding: 80px 16px; text-align: center; color: var(--muted); }
+.stage { position: relative; width: 100%; max-width: 640px; aspect-ratio: 4 / 3; margin: 0 auto; border-radius: 16px; overflow: hidden; background: #000; }
+.stage video, .stage canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+.status, .label { position: absolute; left: 50%; transform: translateX(-50%); background: rgba(11, 16, 32, 0.8); padding: 6px 14px; border-radius: 999px; white-space: nowrap; }
+.status { top: 50%; }
+.label { bottom: 14px; font-weight: 700; color: var(--accent); font-size: 20px; }
+.hint { text-align: center; color: var(--muted); }
+.foot { margin-top: 40px; color: var(--muted); font-size: 14px; text-align: center; }
